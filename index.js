@@ -45,6 +45,18 @@ app.post('/api/login', (req, res) => {
 	connection.end()
 })
 
+app.get('/api/get_adopcion', (req, res) => {
+	var connection = mysql.createConnection(credentials)
+	connection.query('SELECT * FROM adopcion', (err, rows) => {
+		if (err) {
+
+			res.status(500).send(err)
+		} else {
+			res.status(200).send(rows)
+		}
+	})
+})
+
 app.get('/api/get_asociacion', (req, res) => {
 	var connection = mysql.createConnection(credentials)
 	connection.query('SELECT * FROM asociacion_protectora', (err, rows) => {
@@ -57,5 +69,99 @@ app.get('/api/get_asociacion', (req, res) => {
 	})
 })
 
+app.get('/api/get_eventos', (req, res) => {
+	var connection = mysql.createConnection(credentials)
+	connection.query('SELECT * FROM eventos', (err, rows) => {
+		if (err) {
+
+			res.status(500).send(err)
+		} else {
+			res.status(200).send(rows)
+		}
+	})
+})
+app.get('/api/get_favoritos', (req, res) => {
+	var connection = mysql.createConnection(credentials)
+	connection.query('SELECT * FROM favoritos', (err, rows) => {
+		if (err) {
+
+			res.status(500).send(err)
+		} else {
+			res.status(200).send(rows)
+		}
+	})
+})
+
+app.get('/api/get_formulario_adopcion', (req, res) => {
+	var connection = mysql.createConnection(credentials)
+	connection.query('SELECT * FROM formulario_adopcion', (err, rows) => {
+		if (err) {
+
+			res.status(500).send(err)
+		} else {
+			res.status(200).send(rows)
+		}
+	})
+})
+
+app.get('/api/get_mascotas', (req, res) => {
+	var connection = mysql.createConnection(credentials)
+	connection.query('SELECT * FROM mascotas', (err, rows) => {
+		if (err) {
+
+			res.status(500).send(err)
+		} else {
+			res.status(200).send(rows)
+		}
+	})
+})
+
+app.get('/api/get_novedades', (req, res) => {
+	var connection = mysql.createConnection(credentials)
+	connection.query('SELECT * FROM novedades', (err, rows) => {
+		if (err) {
+
+			res.status(500).send(err)
+		} else {
+			res.status(200).send(rows)
+		}
+	})
+})
+
+app.get('/api/get_personalidad', (req, res) => {
+	var connection = mysql.createConnection(credentials)
+	connection.query('SELECT * FROM personalidad', (err, rows) => {
+		if (err) {
+
+			res.status(500).send(err)
+		} else {
+			res.status(200).send(rows)
+		}
+	})
+})
+
+app.get('/api/get_salud', (req, res) => {
+	var connection = mysql.createConnection(credentials)
+	connection.query('SELECT * FROM salud', (err, rows) => {
+		if (err) {
+
+			res.status(500).send(err)
+		} else {
+			res.status(200).send(rows)
+		}
+	})
+})
+
+app.get('/api/get_usuarios', (req, res) => {
+	var connection = mysql.createConnection(credentials)
+	connection.query('SELECT * FROM adopcion', (err, rows) => {
+		if (err) {
+
+			res.status(500).send(err)
+		} else {
+			res.status(200).send(rows)
+		}
+	})
+})
 
 app.listen(4000, () => console.log('hola soy el servidor'))

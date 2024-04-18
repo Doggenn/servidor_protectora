@@ -45,7 +45,7 @@ app.post('/api/login', (req, res) => {
 	connection.end()
 })
 
-app.get('/api/get_adopcion', (req, res) => {
+app.get('/api/adopcion', (req, res) => {
 	var connection = mysql.createConnection(credentials)
 	connection.query('SELECT * FROM adopcion', (err, rows) => {
 		if (err) {
@@ -57,7 +57,7 @@ app.get('/api/get_adopcion', (req, res) => {
 	})
 })
 
-app.get('/api/get_asociacion', (req, res) => {
+app.get('/api/asociacion', (req, res) => {
 	var connection = mysql.createConnection(credentials)
 	connection.query('SELECT * FROM asociacion_protectora', (err, rows) => {
 		if (err) {
@@ -69,7 +69,7 @@ app.get('/api/get_asociacion', (req, res) => {
 	})
 })
 
-app.get('/api/get_eventos', (req, res) => {
+app.get('/api/eventos', (req, res) => {
 	var connection = mysql.createConnection(credentials)
 	connection.query('SELECT * FROM eventos', (err, rows) => {
 		if (err) {
@@ -80,7 +80,7 @@ app.get('/api/get_eventos', (req, res) => {
 		}
 	})
 })
-app.get('/api/get_favoritos', (req, res) => {
+app.get('/api/favoritos', (req, res) => {
 	var connection = mysql.createConnection(credentials)
 	connection.query('SELECT * FROM favoritos', (err, rows) => {
 		if (err) {
@@ -92,7 +92,7 @@ app.get('/api/get_favoritos', (req, res) => {
 	})
 })
 
-app.get('/api/get_formulario_adopcion', (req, res) => {
+app.get('/api/formulario_adopcion', (req, res) => {
 	var connection = mysql.createConnection(credentials)
 	connection.query('SELECT * FROM formulario_adopcion', (err, rows) => {
 		if (err) {
@@ -104,7 +104,7 @@ app.get('/api/get_formulario_adopcion', (req, res) => {
 	})
 })
 
-app.get('/api/get_mascotas', (req, res) => {
+app.get('/api/mascotas', (req, res) => {
 	var connection = mysql.createConnection(credentials)
 	connection.query('SELECT * FROM mascotas', (err, rows) => {
 		if (err) {
@@ -116,7 +116,7 @@ app.get('/api/get_mascotas', (req, res) => {
 	})
 })
 
-app.get('/api/get_novedades', (req, res) => {
+app.get('/api/novedades', (req, res) => {
 	var connection = mysql.createConnection(credentials)
 	connection.query('SELECT * FROM novedades', (err, rows) => {
 		if (err) {
@@ -128,7 +128,7 @@ app.get('/api/get_novedades', (req, res) => {
 	})
 })
 
-app.get('/api/get_personalidad', (req, res) => {
+app.get('/api/personalidad', (req, res) => {
 	var connection = mysql.createConnection(credentials)
 	connection.query('SELECT * FROM personalidad', (err, rows) => {
 		if (err) {
@@ -140,7 +140,7 @@ app.get('/api/get_personalidad', (req, res) => {
 	})
 })
 
-app.get('/api/get_salud', (req, res) => {
+app.get('/api/salud', (req, res) => {
 	var connection = mysql.createConnection(credentials)
 	connection.query('SELECT * FROM salud', (err, rows) => {
 		if (err) {
@@ -152,9 +152,9 @@ app.get('/api/get_salud', (req, res) => {
 	})
 })
 
-app.get('/api/get_usuarios', (req, res) => {
+app.get('/api/usuarios', (req, res) => {
 	var connection = mysql.createConnection(credentials)
-	connection.query('SELECT * FROM adopcion', (err, rows) => {
+	connection.query('SELECT * FROM usuarios', (err, rows) => {
 		if (err) {
 
 			res.status(500).send(err)

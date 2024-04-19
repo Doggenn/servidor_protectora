@@ -115,6 +115,21 @@ app.get('/api/mascotas', (req, res) => {
 		}
 	})
 })
+app.get('/api/mascotas/:id', (req, res) => {
+    const mascotaId = req.params.id;
+    const query = 'SELECT * FROM mascotas WHERE id = ?';
+    connection.query(query, [mascotaId], (err, rows) => {
+        if (err) {
+            res.status(500).send(err);
+        } else {
+            if (rows.length > 0) {
+                res.status(200).send(rows[0]);
+            } else {
+                res.status(404).send('Mascota no encontrada');
+            }
+        }
+	});
+});
 
 app.get('/api/novedades', (req, res) => {
 	var connection = mysql.createConnection(credentials)

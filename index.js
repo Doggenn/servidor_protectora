@@ -9,9 +9,6 @@ app.use(bodyParser.json({ limit: '10mb' }))
 
 
 
-// const JWT = require('jsonwebtoken')
-// const secretWord = 'Samus#Aran'
-
 const credentials = {
 	host: 'pro.freedb.tech',
 	user: 'Doggenn',
@@ -117,6 +114,7 @@ app.get('/api/mascotas', (req, res) => {
 })
 app.get('/api/mascotas/:id', (req, res) => {
     const mascotaId = req.params.id;
+    var connection = mysql.createConnection(credentials); // Mover la creación de conexión aquí
     const query = 'SELECT * FROM mascotas WHERE id = ?';
     connection.query(query, [mascotaId], (err, rows) => {
         if (err) {
@@ -128,7 +126,8 @@ app.get('/api/mascotas/:id', (req, res) => {
                 res.status(404).send('Mascota no encontrada');
             }
         }
-	});
+        connection.end(); // Cerrar la conexión aquí después de la consulta
+    });
 });
 
 app.get('/api/novedades', (req, res) => {

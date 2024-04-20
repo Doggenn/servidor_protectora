@@ -20,19 +20,18 @@ app.get('/', (req, res) => {
 	res.send('hola desde tu primera ruta de la Api pol');
 })
 
-app.post('/api/login', (req, res) => {
-	const { username, password } = req.body
-	const values = [username, password]
+app.post('/api/usuario/login', (req, res) => {
+	const { usuario, password } = req.body
+	const values = [usuario, password]
 	var connection = mysql.createConnection(credentials)
-	connection.query("SELECT * FROM login WHERE username = ? AND password = ?", values, (err, result) => {
+	connection.query("SELECT * FROM usuarios WHERE usuario = ? AND password = ?", values, (err, result) => {
 		if (err) {
 			res.status(500).send(err)
 		} else {
 			if (result.length > 0) {
 				res.status(200).send({
 					"id": result[0].id,
-					"user": result[0].user,
-					"username": result[0].username
+					"usuario": result[0].usuario
 				})
 			} else {
 				res.status(400).send('Usuario no existe')
@@ -100,6 +99,69 @@ app.get('/api/formulario_adopcion', (req, res) => {
 		}
 	})
 })
+app.post('/api/formulario', (req, res) => {
+  const {
+    id_usuario,
+    id_mascota,
+    other_animal,
+    cuales,
+    actitud,
+    porqueadoptar,
+    necesitades,
+    nombre_completo,
+    email,
+    telefono,
+    dni,
+    direccion,
+    codigo_postal,
+    ciudad,
+    tipo_vivienda,
+    alquiler,
+    casero,
+    mudanza,
+    jardin,
+    compis,
+    acuerdo_adopcion,
+    acuerdo_visitas
+  } = req.body;
+
+  const values = [
+    id_usuario,
+    id_mascota,
+    other_animal,
+    cuales,
+    actitud,
+    porqueadoptar,
+    necesitades,
+    nombre_completo,
+    email,
+    telefono,
+    dni,
+    direccion,
+    codigo_postal,
+    ciudad,
+    tipo_vivienda,
+    alquiler,
+    casero,
+    mudanza,
+    jardin,
+    compis,
+    acuerdo_adopcion,
+    acuerdo_visitas
+  ];
+
+  var connection = mysql.createConnection(credentials);
+
+  connection.query("INSERT INTO formulario_adopcion (id_usuario, id_mascota, other_animal, cuales, actitud, porqueadoptar, necesitades, nombre_completo, email, telefono, dni, direccion, codigo_postal, ciudad, tipo_vivienda, alquiler, casero, mudanza, jardin, compis, acuerdo_adopcion, acuerdo_visitas) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", values, (err, result) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(200).send('Formulario de adopción creado correctamente');
+    }
+  });
+
+  connection.end();
+});
 
 app.get('/api/mascotas', (req, res) => {
 	var connection = mysql.createConnection(credentials)
@@ -114,7 +176,7 @@ app.get('/api/mascotas', (req, res) => {
 })
 app.get('/api/mascotas/:id', (req, res) => {
     const mascotaId = req.params.id;
-    var connection = mysql.createConnection(credentials); // Mover la creación de conexión aquí
+    var connection = mysql.createConnection(credentials); 
     const query = 'SELECT * FROM mascotas WHERE id = ?';
     connection.query(query, [mascotaId], (err, rows) => {
         if (err) {
@@ -126,7 +188,7 @@ app.get('/api/mascotas/:id', (req, res) => {
                 res.status(404).send('Mascota no encontrada');
             }
         }
-        connection.end(); // Cerrar la conexión aquí después de la consulta
+        connection.end();
     });
 });
 
@@ -154,6 +216,24 @@ app.get('/api/personalidad', (req, res) => {
 	})
 })
 
+app.get('/api/personalidad/:id', (req, res) => {
+    const personalidadId = req.params.id;
+    var connection = mysql.createConnection(credentials); 
+    const query = 'SELECT * FROM personalidad WHERE id_mascota = ?';
+    connection.query(query, [personalidadId], (err, rows) => {
+        if (err) {
+            res.status(500).send(err);
+        } else {
+            if (rows.length > 0) {
+                res.status(200).send(rows[0]);
+            } else {
+                res.status(404).send('Personalidad no encontrada');
+            }
+        }
+        connection.end();
+    });
+});
+
 app.get('/api/salud', (req, res) => {
 	var connection = mysql.createConnection(credentials)
 	connection.query('SELECT * FROM salud', (err, rows) => {
@@ -166,7 +246,25 @@ app.get('/api/salud', (req, res) => {
 	})
 })
 
-app.get('/api/usuarios', (req, res) => {
+app.get('/api/salud/:id', (req, res) => {
+    const personalidadId = req.params.id;
+    var connection = mysql.createConnection(credentials); 
+    const query = 'SELECT * FROM salud WHERE id_mascota = ?';
+    connection.query(query, [personalidadId], (err, rows) => {
+        if (err) {
+            res.status(500).send(err);
+        } else {
+            if (rows.length > 0) {
+                res.status(200).send(rows[0]);
+            } else {
+                res.status(404).send('Salud de la mascota no encontrada');
+            }
+        }
+        connection.end();
+    });
+});
+
+app.get('/api/usuario', (req, res) => {
 	var connection = mysql.createConnection(credentials)
 	connection.query('SELECT * FROM usuarios', (err, rows) => {
 		if (err) {
